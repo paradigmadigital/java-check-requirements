@@ -1,0 +1,9 @@
+---
+# tasks file for java-check-requirements
+- name: Get java version
+  command: 'java -version 2>&1 | head -n 1 | cut -d '.' -f2'
+  register: real_java_version
+
+- name: Check java version
+  fail: msg="Java version doesn't match, expected {{java_version}} got {{real_java_version}}"
+  when: java_version != real_java_version
